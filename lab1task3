@@ -1,0 +1,147 @@
+#include <iostream>
+using namespace std;
+
+class Product
+{
+private:
+    int productId;
+    double price;
+
+public:
+    Product()
+    {
+        productId = 0;
+        price = 0.0;
+    }
+
+    Product(int id, double p)
+    {
+        productId = id;
+        price = p;
+    }
+
+    
+    void setId(int id)
+    {
+        productId = id;
+    }
+
+    void setPrice(double p)
+    {
+        price = p;
+    }
+
+    int getId()
+    {
+        return productId;
+    }
+
+    double getPrice()
+    {
+        return price;
+    }
+
+    static int linearSearch(Product arr[], int size, double key)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            if (arr[i].price == key)
+                return i;
+        }
+        return -1;
+    }
+
+    static int binarySearch(Product arr[], int size, double key)
+    {
+        int low = 0;
+        int high = size - 1;
+
+        while (low <= high)
+        {
+            int mid = (low + high) / 2;
+
+            if (arr[mid].price == key)
+                return mid;
+            else if (key < arr[mid].price)
+                high = mid - 1;
+            else
+                low = mid + 1;
+        }
+
+        return -1;
+    }
+
+    static void sort(Product arr[], int size)
+    {
+        for (int i = 0; i < size - 1; i++)
+        {
+            for (int j = 0; j < size - i - 1; j++)
+            {
+                if (arr[j].price > arr[j + 1].price)
+                {
+                    Product temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+    }
+};
+
+int main()
+{
+    const int SIZE = 15;
+    Product products[SIZE] = {
+        Product(1023, 500.0),
+        Product(1456, 1200.0),
+        Product(1789, 300.0),
+        Product(2345, 2500.0),
+        Product(2678, 1500.0),
+        Product(2987, 800.0),
+        Product(3123, 4500.0),
+        Product(3567, 2200.0),
+        Product(3890, 1700.0),
+        Product(4123, 900.0),
+        Product(4567, 100.0),
+        Product(4789, 3200.0),
+        Product(5123, 2750.0),
+        Product(5678, 600.0),
+        Product(5987, 4100.0)
+    };
+
+    cout << "Original Product List:\n";
+    for (int i = 0; i < SIZE; i++)
+    {
+        cout << "ID: " << products[i].getId()
+            << "  Price: " << products[i].getPrice() << endl;
+    }
+
+    double searchPrice;
+    cout << "\nEnter price to search: ";
+    cin >> searchPrice;
+
+    int index = Product::linearSearch(products, SIZE, searchPrice);
+
+    if (index != -1)
+        cout << "Linear Search: Found at index " << index << endl;
+    else
+        cout << "Linear Search: Not Found\n";
+
+    Product::sort(products, SIZE);
+
+    cout << "\nSorted Product List:\n";
+    for (int i = 0; i < SIZE; i++)
+    {
+        cout << "ID: " << products[i].getId()
+            << "  Price: " << products[i].getPrice() << endl;
+    }
+
+    index = Product::binarySearch(products, SIZE, searchPrice);
+
+    if (index != -1)
+        cout << "Binary Search: Found at index " << index << endl;
+    else
+        cout << "Binary Search: Not Found\n";
+
+    return 0;
+}
