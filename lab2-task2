@@ -1,0 +1,62 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+template<class T>
+class LeaderBoard
+{
+private:
+	string* name;
+	T* scores;
+	int counter = 0;
+	int size = 100;
+public:
+	LeaderBoard()
+	{
+		name = new string[size];
+		scores = new T[size];
+	}
+	void addPlayer(string n, T s)
+	{
+		name[counter] = n;
+		scores[counter] = s;
+		counter++;
+	}
+	void Display()
+	{
+		for (int i = 0; i < counter; i++)
+		{
+			cout << "Player " << i + 1 << endl;
+			cout << "Name: " << name[i] << "  Score: " << scores[i] << endl;
+		}
+	}
+	
+	string getWinner()
+	{
+		int high=0;
+		for (int i = 1; i < counter; i++)
+		{
+			if (scores[0] < scores[i])
+			{
+				high = i;
+			}
+		}
+		return name[high];
+	}
+	
+};
+int main()
+{
+	LeaderBoard<int>l1;
+	l1.addPlayer("Abdullah", 19);
+	l1.addPlayer("Zaman", 18);
+	l1.addPlayer("Simran", 17);
+	l1.Display();
+	cout<<"WINNER: "<<l1.getWinner()<<endl;
+	LeaderBoard<double>l2;
+	l2.addPlayer("Abdullah", 3.11);
+	l2.addPlayer("Zaman", 2.86);
+	l2.addPlayer("Simran", 3.69);
+	l2.Display();
+	cout << "WINNER: " << l2.getWinner() << endl;
+}
