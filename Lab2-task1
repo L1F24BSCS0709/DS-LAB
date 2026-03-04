@@ -1,0 +1,57 @@
+#include<iostream>
+using namespace std;
+
+template<class T>
+class Calculator
+{
+private:
+	T n1;
+	T n2;
+public:
+	Calculator():n1(0),n2(0){ }
+	Calculator(T a, T b)
+	{
+		n1 = a;
+		n2 = b;
+	}
+	T Add()
+	{
+		return n1 + n2;
+	}
+	T Subtract()
+	{
+		return n1 - n2;
+	}
+	T Multiply()
+	{
+		return n1 * n2;
+	}
+	T Divide()
+	{
+		return n1 / n2;
+	}
+	void Display()
+	{
+		cout << "SUM of " << n1 << " And " << n2 << " is: " << Add() << endl;
+		cout << "Subtraction of " << n1 << " And " << n2 << " is: " << Subtract() << endl;
+		cout << "Multiplication of " << n1 << " And " << n2 << " is: " << Multiply() << endl;
+		if (n2 == 0)
+		{
+			cout << "Divide by ZERO is not Possible" << endl;
+		}
+		else
+		cout << "Division of " << n1 << " And " << n2 << " is: " << Divide() << endl;
+
+	}
+};
+int main()
+{
+	
+	
+	Calculator<int> c1(10,5);
+	cout << "------INTEGER CALCULATOR-----"<<endl;
+	c1.Display();
+	Calculator<double> c2(10.9, 5.4);
+	cout << "\n------FLOAT CALCULATOR-----" << endl;
+	c2.Display();
+}
